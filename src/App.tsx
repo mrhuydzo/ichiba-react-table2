@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles/main.css";
+import "./styles/fontawesome-pro/css/all.css";
 import {ITableColumnProps, Table} from "./components/table";
 
 const columns = [
@@ -342,9 +343,14 @@ const rows = [
 function App() {
 	return (
 		<div className="App">
-			<h1>Table</h1>
-			<h2>Sorting, Filtering, Pagination</h2>
-			<Table rows={rows} columns={columns}/>
+			<div className="container">
+				<div className="py-4">
+					<h1 className="text-3xl"><strong>Table</strong></h1>
+					<h2 className="text-gray-400">Sorting, Filtering, Pagination</h2>
+				</div>
+				<hr/>
+				<Table rows={rows} columns={columns}/>
+			</div>
 		</div>
 	);
 }

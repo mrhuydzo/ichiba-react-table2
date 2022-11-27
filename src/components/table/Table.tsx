@@ -11,7 +11,7 @@ const Table = ({ columns, rows }: ITableProps) => {
     orderBy: "id",
   });
 
-  const rowsPerPage = 5;
+  const rowsPerPage = 10;
 
   const filteredRows = useMemo(
     () => filterRows(rows, filters),
@@ -55,34 +55,34 @@ const Table = ({ columns, rows }: ITableProps) => {
     }));
   };
 
-  const clearAll = () => {
-    setSort({ order: "asc", orderBy: "id" });
-    setActivePage(1);
-    setFilters({});
-  };
-  console.log("zzzzzzzzz",calculatedRows);
+  // const clearAll = () => {
+  //   setSort({ order: "asc", orderBy: "id" });
+  //   setActivePage(1);
+  //   setFilters({});
+  // };
+  // console.log("zzzzzzzzz",calculatedRows);
   return (
     <>
-      <div className="container">
-        <table style={{ width: "100%" , border:'1px solid'}}>
-          <thead>
+      <div className="my-8 overflow-hidden shadow-sm">
+        <table className="w-full text-sm border-collapse table-auto">
+          <thead className="bg-gray-200">
           <tr>
             {columns.map((column) => {
               const sortIcon = () => {
                 if (column.accessor === sort.orderBy) {
                   if (sort.order === "asc") {
-                    return "⬆️";
+                    return "arrow-up";
                   }
-                  return "⬇️";
+                  return "arrow-down";
                 } else {
-                  return "️↕️";
+                  return "arrows-v";
                 }
               };
               return (
-                <th key={column.accessor}>
-                  <span>{column.label}</span>
-                  <button onClick={() => handleSort(column.accessor)}>
-                    {sortIcon()}
+                <th key={column.accessor} className="p-2">
+                  <span className="text-lg">{column.label}</span>
+                  <button onClick={() => handleSort(column.accessor)} className="p-1 ml-1">
+                     <i className={`far fa-${sortIcon()}`} />
                   </button>
                 </th>
               );
@@ -91,16 +91,19 @@ const Table = ({ columns, rows }: ITableProps) => {
           <tr>
             {columns.map((column, index) => {
               return (
-                <th key={index}>
-                  <input
-                    key={`${column.accessor}-search`}
-                    type="search"
-                    placeholder={`Search ${column.label}`}
-                    value={filters[column.accessor]}
-                    onChange={(event) =>
-                      handleSearch(event.target.value, column.accessor)
-                    }
-                  />
+                <th key={index} className="p-2">
+                  <div className="mt-1">
+                    <input
+                      key={`${column.accessor}-search`}
+                      type="search"
+                      className="text-gray-700 w-full px-3 py-2 placeholder:text-gray-500 border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      placeholder={`Search ${column.label}`}
+                      value={filters[column.accessor]}
+                      onChange={(event) =>
+                        handleSearch(event.target.value, column.accessor)
+                      }
+                    />
+                  </div>
                 </th>
               );
             })}
@@ -109,16 +112,16 @@ const Table = ({ columns, rows }: ITableProps) => {
           <tbody>
           {calculatedRows.map((row) => {
             return (
-              <tr key={row.id}>
+              <tr key={row.id} className="hover:bg-gray-100">
                 {columns.map((column) => {
                   if (column.format) {
                     return (
-                      <td key={column.accessor}>
+                      <td key={column.accessor} className="p-4 border-b border-gray-300">
                         {column.format(row[column.accessor])}
                       </td>
                     );
                   }
-                  return <td key={column.accessor}>{row[column.accessor]}</td>;
+                  return <td key={column.accessor} className="p-4 border-b border-gray-300">{row[column.accessor]}</td>;
                 })}
               </tr>
             );

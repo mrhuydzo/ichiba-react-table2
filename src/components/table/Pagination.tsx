@@ -13,35 +13,40 @@ const Pagination = ({
 
   return (
     <>
-      <div className="pagination">
-        <button disabled={activePage === 1} onClick={() => setActivePage(1)}>
-          ⏮️ First
-        </button>
-        <button
-          disabled={activePage === 1}
-          onClick={() => setActivePage(activePage - 1)}
-        >
-          ⬅️ Previous
-        </button>
-        <button
-          disabled={activePage === totalPages}
-          onClick={() => setActivePage(activePage + 1)}
-        >
-          Next ➡️
-        </button>
-        <button
-          disabled={activePage === totalPages}
-          onClick={() => setActivePage(totalPages)}
-        >
-          Last ⏭️
-        </button>
+      <div className="flex justify-end items-center p-3 bg-gray-200">
+        <div className="mr-5">
+          Page {activePage} of {totalPages}
+        </div>
+        <div className="mr-5">
+          Rows: {beginning === end ? end : `${beginning} - ${end}`} of {count}
+        </div>
+        <div>
+          <button disabled={activePage === 1} onClick={() => setActivePage(1)} className="py-2 px-4 disabled:opacity-25">
+            <i className="far fa-arrow-to-left"/>
+          </button>
+          <button
+            disabled={activePage === 1}
+            className="py-2 px-4 disabled:opacity-25"
+            onClick={() => setActivePage(activePage - 1)}
+          >
+            <i className="far fa-chevron-left"/>
+          </button>
+          <button
+            disabled={activePage === totalPages}
+            className="py-2 px-4 disabled:opacity-25"
+            onClick={() => setActivePage(activePage + 1)}
+          >
+            <i className="far fa-chevron-right"/>
+          </button>
+          <button
+            disabled={activePage === totalPages}
+            className="py-2 px-4 disabled:opacity-25"
+            onClick={() => setActivePage(totalPages)}
+          >
+            <i className="far fa-arrow-to-right"/>
+          </button>
+        </div>
       </div>
-      <p>
-        Page {activePage} of {totalPages}
-      </p>
-      <p>
-        Rows: {beginning === end ? end : `${beginning} - ${end}`} of {count}
-      </p>
     </>
   );
 };
