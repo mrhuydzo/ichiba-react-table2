@@ -72,7 +72,7 @@ export function filterRows(rows: Array<any>, filters: any) {
       }
 
       if (isNumber(value)) {
-        return value === searchValue;
+        return value === Number(searchValue);
       }
 
       return false;

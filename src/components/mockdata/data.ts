@@ -1,3 +1,5 @@
+import {ITableColumnProps} from "../table";
+
 type IRows = {
 	id: number,
 	name?: string,
@@ -329,3 +331,14 @@ export const rows: Array<IRows> = [
 		start_date: "06-09-2004",
 	},
 ];
+
+export const columns = [
+	{accessor: "name", label: "Name"},
+	{accessor: "age", label: "Age"},
+	{
+		accessor: "is_manager",
+		label: "Manager",
+		format: (value: any) => (value ? "✔️" : "✖️"),
+	},
+	{accessor: "start_date", label: "Start Date"},
+] as Array<ITableColumnProps>;
