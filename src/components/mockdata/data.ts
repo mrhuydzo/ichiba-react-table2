@@ -1,20 +1,11 @@
-import React from "react";
-import "./styles/main.css";
-import "./styles/fontawesome-pro/css/all.css";
-import {ITableColumnProps, Table} from "./components/table";
-
-const columns = [
-	{accessor: "name", label: "Name"},
-	{accessor: "age", label: "Age"},
-	{
-		accessor: "is_manager",
-		label: "Manager",
-		format: (value: any) => (value ? "✔️" : "✖️"),
-	},
-	{accessor: "start_date", label: "Start Date"},
-] as Array<ITableColumnProps>;
-
-const rows = [
+type IRows = {
+	id: number,
+	name?: string,
+	age?: number,
+	is_manager?: boolean,
+	start_date?: string,
+}
+export const rows: Array<IRows> = [
 	{
 		id: 1,
 		name: "Liz Lemon",
@@ -46,7 +37,7 @@ const rows = [
 	{
 		id: 5,
 		name: "Kenneth Parcell",
-		age: 23,
+		age: 34,
 		is_manager: false,
 		start_date: "01-01-1970",
 	},
@@ -95,7 +86,7 @@ const rows = [
 	{
 		id: 12,
 		name: "Kendra lust",
-		age: 44,
+		age: 23,
 		is_manager: false,
 		start_date: "01-01-1970",
 	},
@@ -194,7 +185,7 @@ const rows = [
 		id: 26,
 		name: "Amai liu",
 		age: 87,
-		is_manager: false,
+		is_manager: true,
 		start_date: "06-09-2004",
 	},
 	{
@@ -215,7 +206,7 @@ const rows = [
 		id: 29,
 		name: "Romi rain",
 		age: 48,
-		is_manager: false,
+		is_manager: true,
 		start_date: "06-09-2004",
 	},
 	{
@@ -264,7 +255,7 @@ const rows = [
 		id: 36,
 		name: "Kitty jung",
 		age: 35,
-		is_manager: false,
+		is_manager: true,
 		start_date: "06-09-2004",
 	},
 	{
@@ -285,7 +276,7 @@ const rows = [
 		id: 39,
 		name: "Beti hana",
 		age: 76,
-		is_manager: false,
+		is_manager: true,
 		start_date: "06-09-2004",
 	},
 	{
@@ -306,7 +297,7 @@ const rows = [
 		id: 42,
 		name: "Mia khalifa",
 		age: 25,
-		is_manager: false,
+		is_manager: true,
 		start_date: "06-09-2004",
 	},
 	{
@@ -320,7 +311,7 @@ const rows = [
 		id: 44,
 		name: "Riley reid",
 		age: 36,
-		is_manager: false,
+		is_manager: true,
 		start_date: "06-09-2004",
 	},
 	{
@@ -337,22 +328,4 @@ const rows = [
 		is_manager: false,
 		start_date: "06-09-2004",
 	},
-	{id: 47, name: null, age: null, is_manager: null, start_date: null},
 ];
-
-function App() {
-	return (
-		<div className="App">
-			<div className="container">
-				<div className="py-4">
-					<h1 className="text-3xl"><strong>Table</strong></h1>
-					<h2 className="text-gray-400">Sorting, Filtering, Pagination</h2>
-				</div>
-				<hr/>
-				<Table rows={rows} columns={columns}/>
-			</div>
-		</div>
-	);
-}
-
-export default App;
