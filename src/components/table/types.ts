@@ -7,6 +7,12 @@ export interface ITableColumnProps {
 export interface ITableProps {
   columns: Array<ITableColumnProps>;
   rows: Array<any>;
+  headerAlign?: string;
+  bgOdd?: string;
+  bgEven?: string;
+  bgHover?: string;
+  filter: boolean;
+  rowsPerPage: number
 }
 
 export interface ITableSortProps {
@@ -18,6 +24,7 @@ export interface IPaginationProps {
   activePage: number;
   count: number;
   rowsPerPage: number;
-  totalPages: number;
+  totalPages?: number;
   setActivePage: (page: number) => void;
+  setRowPerPage: (page: number) => void;
 }

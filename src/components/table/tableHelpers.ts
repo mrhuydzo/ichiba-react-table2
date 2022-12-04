@@ -112,3 +112,11 @@ export function paginateRows(
     activePage * rowsPerPage
   );
 }
+
+
+export const colorPosition: any = {
+  Employee: "text-gray-500",
+  Intern: "text-green-500",
+  Manager: "text-orange-500",
+  Leader: "text-red-500",
+};
