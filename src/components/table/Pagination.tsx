@@ -1,4 +1,3 @@
-import React from "react";
 import { IPaginationProps } from "./types";
 
 const Pagination = ({
@@ -8,14 +7,13 @@ const Pagination = ({
   setActivePage,
   setRowPerPage,
 }: IPaginationProps) => {
-
   const totalPages = Math.ceil(count / rowsPerPage);
   const beginning = activePage === 1 ? 1 : rowsPerPage * (activePage - 1) + 1;
   const end = activePage === totalPages ? count : beginning + rowsPerPage - 1;
 
   const onSelectRowPerPage = (e: any) => {
-    setRowPerPage(e.target.value)
-  }
+    setRowPerPage(Number(e.target.value));
+  };
 
   return (
     <>
@@ -24,7 +22,12 @@ const Pagination = ({
           Page {activePage} of {totalPages}
         </div>
         <div className="mr-5">
-          <select name="" id="" className="bg-neutral-50 outline-none cursor-pointer p-1" onChange={onSelectRowPerPage}>
+          <select
+            name=""
+            id=""
+            className="bg-neutral-50 outline-none cursor-pointer p-1"
+            onChange={onSelectRowPerPage}
+          >
             <option value={5}>5</option>
             <option value={10}>10</option>
             <option value={15}>15</option>
@@ -34,29 +37,33 @@ const Pagination = ({
           Rows: {beginning === end ? end : `${beginning} - ${end}`} of {count}
         </div>
         <div>
-          <button disabled={activePage === 1} onClick={() => setActivePage(1)} className="py-2 px-4 disabled:opacity-25">
-            <i className="far fa-arrow-to-left"/>
+          <button
+            disabled={activePage === 1}
+            onClick={() => setActivePage(1)}
+            className="py-2 px-4 disabled:opacity-25"
+          >
+            <i className="far fa-arrow-to-left" />
           </button>
           <button
             disabled={activePage === 1}
             className="py-2 px-4 disabled:opacity-25"
             onClick={() => setActivePage(activePage - 1)}
           >
-            <i className="far fa-chevron-left"/>
+            <i className="far fa-chevron-left" />
           </button>
           <button
             disabled={activePage === totalPages}
             className="py-2 px-4 disabled:opacity-25"
             onClick={() => setActivePage(activePage + 1)}
           >
-            <i className="far fa-chevron-right"/>
+            <i className="far fa-chevron-right" />
           </button>
           <button
             disabled={activePage === totalPages}
             className="py-2 px-4 disabled:opacity-25"
             onClick={() => setActivePage(totalPages)}
           >
-            <i className="far fa-arrow-to-right"/>
+            <i className="far fa-arrow-to-right" />
           </button>
         </div>
       </div>

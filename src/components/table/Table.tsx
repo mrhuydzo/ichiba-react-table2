@@ -1,19 +1,27 @@
-import React, { useState, useMemo } from "react";
-import { sortRows, filterRows, paginateRows } from "./tableHelpers";
+import { useMemo, useState } from "react";
 import Pagination from "./Pagination";
+import {
+  colorPosition,
+  filterRows,
+  paginateRows,
+  sortRows,
+} from "./tableHelpers";
 import { ITableProps, ITableSortProps } from "./types";
-import {colorPosition} from "./tableHelpers";
 
-
-const Table = ({ columns, rows, headerAlign , bgHover,filter,rowsPerPage}: ITableProps) => {
+const Table = ({
+  columns,
+  rows,
+  headerAlign,
+  bgHover,
+  filter,
+}: ITableProps) => {
   const [activePage, setActivePage] = useState<number>(1);
-  const [stateRowsPerPage,setStateRowsPerPage] = useState<number>(rowsPerPage || 10);
+  const [stateRowsPerPage, setStateRowsPerPage] = useState<number>(5);
   const [filters, setFilters] = useState<any>({} as any);
   const [sort, setSort] = useState<ITableSortProps>({
     order: "asc",
     orderBy: "id",
   });
-
 
   // const rowsPerPage = 10;
 
@@ -25,10 +33,15 @@ const Table = ({ columns, rows, headerAlign , bgHover,filter,rowsPerPage}: ITabl
     () => sortRows(filteredRows, sort),
     [filteredRows, sort]
   );
-  const calculatedRows = paginateRows(sortedRows, activePage, rowsPerPage);
+  const calculatedRows = paginateRows(sortedRows, activePage, stateRowsPerPage);
 
   const count = filteredRows.length;
   //const totalPages = Math.ceil(count / rowsPerPage);
+
+  const updateRowsPerPage = (rowsPerPage: number) => {
+    setActivePage(1);
+    setStateRowsPerPage(rowsPerPage);
+  };
 
   const handleSearch = (value: any, accessor: string) => {
     setActivePage(1);
@@ -70,78 +83,100 @@ const Table = ({ columns, rows, headerAlign , bgHover,filter,rowsPerPage}: ITabl
       <div className="my-8 overflow-hidden shadow-sm">
         <table className="w-full text-sm border-collapse table-auto">
           <thead className="bg-gray-200">
-          <tr>
-            {columns.map((column) => {
-              const sortIcon = () => {
-                if (column.accessor === sort.orderBy) {
-                  if (sort.order === "asc") {
-                    return "arrow-up";
-                  }
-                  return "arrow-down";
-                } else {
-                  return "arrows-v";
-                }
-              };
-              return (
-                <th key={column.accessor} className={`p-2`}>
-                  <div className="flex justify-between">
-                    <div className={`text-${headerAlign} grow`}><span className="text-lg">{column.label}</span></div>
-                    <button onClick={() => handleSort(column.accessor)} className="p-1 ml-1">
-                      <span className="mr-1">Sort</span> <i className={`far fa-${sortIcon()} text-gray-500`} />
-                    </button>
-                  </div>
-                </th>
-              );
-            })}
-          </tr>
-          { filter && (
             <tr>
-              {columns.map((column, index) => {
+              {columns.map((column) => {
+                const sortIcon = () => {
+                  if (column.accessor === sort.orderBy) {
+                    if (sort.order === "asc") {
+                      return "arrow-up";
+                    }
+                    return "arrow-down";
+                  } else {
+                    return "arrows-v";
+                  }
+                };
                 return (
-                  <th key={index} className="p-2">
-                    <div className="mt-1">
-                      <input
-                        key={`${column.accessor}-search`}
-                        type="search"
-                        className="text-gray-700 w-full px-3 py-2 placeholder:text-gray-500 border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder={`Search ${column.label}`}
-                        value={filters[column.accessor]}
-                        onChange={(event) =>
-                          handleSearch(event.target.value, column.accessor)
-                        }
-                      />
+                  <th key={column.accessor} className={`p-2`}>
+                    <div className="flex justify-between">
+                      <div className={`text-${headerAlign} grow`}>
+                        <span className="text-lg">{column.label}</span>
+                      </div>
+                      <button
+                        onClick={() => handleSort(column.accessor)}
+                        className="p-1 ml-1"
+                      >
+                        <span className="mr-1">Sort</span>{" "}
+                        <i className={`far fa-${sortIcon()} text-gray-500`} />
+                      </button>
                     </div>
                   </th>
                 );
               })}
             </tr>
-          )}
-
-          </thead>
-          <tbody>
-          {calculatedRows.map((row) => {
-            return (
-              <tr key={row.id} className={`hover:${bgHover} odd:bg-neutral-50`}>
-                {columns.map((column) => {
-                  // if (column.format) {
-                  //   return (
-                  //     <td key={column.accessor} className="p-4 border-b border-gray-300">
-                  //       {column.format(row[column.accessor])}
-                  //     </td>
-                  //   );
-                  // }
-                  if (column.accessor === "position") {
-                    return (
-                      <td key={column.accessor} className="p-4 border-b border-gray-300">
-                        <strong className={`${colorPosition[(row[column.accessor])]}`}>{(row[column.accessor])}</strong>
-                      </td>
-                    );
-                  }
-                  return <td key={column.accessor} className="p-4 border-b border-gray-300">{row[column.accessor]}</td>;
+            {filter && (
+              <tr>
+                {columns.map((column, index) => {
+                  return (
+                    <th key={index} className="p-2">
+                      <div className="mt-1">
+                        <input
+                          key={`${column.accessor}-search`}
+                          type="search"
+                          className="text-gray-700 w-full px-3 py-2 placeholder:text-gray-500 border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          placeholder={`Search ${column.label}`}
+                          value={filters[column.accessor]}
+                          onChange={(event) =>
+                            handleSearch(event.target.value, column.accessor)
+                          }
+                        />
+                      </div>
+                    </th>
+                  );
                 })}
               </tr>
-            );
-          })}
+            )}
+          </thead>
+          <tbody>
+            {calculatedRows.map((row) => {
+              return (
+                <tr
+                  key={row.id}
+                  className={`hover:${bgHover} odd:bg-neutral-50`}
+                >
+                  {columns.map((column) => {
+                    // if (column.format) {
+                    //   return (
+                    //     <td key={column.accessor} className="p-4 border-b border-gray-300">
+                    //       {column.format(row[column.accessor])}
+                    //     </td>
+                    //   );
+                    // }
+                    if (column.accessor === "position") {
+                      return (
+                        <td
+                          key={column.accessor}
+                          className="p-4 border-b border-gray-300"
+                        >
+                          <strong
+                            className={`${colorPosition[row[column.accessor]]}`}
+                          >
+                            {row[column.accessor]}
+                          </strong>
+                        </td>
+                      );
+                    }
+                    return (
+                      <td
+                        key={column.accessor}
+                        className="p-4 border-b border-gray-300"
+                      >
+                        {row[column.accessor]}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
 
@@ -151,7 +186,7 @@ const Table = ({ columns, rows, headerAlign , bgHover,filter,rowsPerPage}: ITabl
             count={count}
             rowsPerPage={stateRowsPerPage}
             setActivePage={setActivePage}
-            setRowPerPage={setStateRowsPerPage}
+            setRowPerPage={updateRowsPerPage}
           />
         ) : (
           <p>No data found</p>
