@@ -23,10 +23,9 @@ const Pagination = ({
         </div>
         <div className="mr-5">
           <select
-            name=""
-            id=""
             className="bg-neutral-50 outline-none cursor-pointer p-1"
             onChange={onSelectRowPerPage}
+            defaultValue={5}
           >
             <option value={5}>5</option>
             <option value={10}>10</option>

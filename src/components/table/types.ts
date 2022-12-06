@@ -11,6 +11,7 @@ export interface ITableProps {
   bgOdd?: string;
   bgEven?: string;
   bgHover?: string;
+  size?: string;
   filter: boolean;
   rowsPerPage: number
 }

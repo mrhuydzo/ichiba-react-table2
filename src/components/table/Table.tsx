@@ -14,6 +14,7 @@ const Table = ({
   headerAlign,
   bgHover,
   filter,
+  size = "p-3",
 }: ITableProps) => {
   const [activePage, setActivePage] = useState<number>(1);
   const [stateRowsPerPage, setStateRowsPerPage] = useState<number>(5);
@@ -80,7 +81,7 @@ const Table = ({
   // console.log("zzzzzzzzz",calculatedRows);
   return (
     <>
-      <div className="my-8 overflow-hidden shadow-sm">
+      <div className="overflow-hidden shadow-sm">
         <table className="w-full text-sm border-collapse table-auto">
           <thead className="bg-gray-200">
             <tr>
@@ -97,15 +98,14 @@ const Table = ({
                 };
                 return (
                   <th key={column.accessor} className={`p-2`}>
-                    <div className="flex justify-between">
-                      <div className={`text-${headerAlign} grow`}>
+                    <div className="flex">
+                      <div className={`text-${headerAlign}`}>
                         <span className="text-lg">{column.label}</span>
                       </div>
                       <button
                         onClick={() => handleSort(column.accessor)}
-                        className="p-1 ml-1"
+                        className="p-1 ml-5"
                       >
-                        <span className="mr-1">Sort</span>{" "}
                         <i className={`far fa-${sortIcon()} text-gray-500`} />
                       </button>
                     </div>
@@ -141,7 +141,7 @@ const Table = ({
               return (
                 <tr
                   key={row.id}
-                  className={`hover:${bgHover} odd:bg-neutral-50`}
+                  className={` even:bg-neutral-50 hover:${bgHover}`}
                 >
                   {columns.map((column) => {
                     // if (column.format) {
@@ -155,7 +155,7 @@ const Table = ({
                       return (
                         <td
                           key={column.accessor}
-                          className="p-4 border-b border-gray-300"
+                          className={`${size} border-b border-gray-300`}
                         >
                           <strong
                             className={`${colorPosition[row[column.accessor]]}`}
@@ -168,7 +168,7 @@ const Table = ({
                     return (
                       <td
                         key={column.accessor}
-                        className="p-4 border-b border-gray-300"
+                        className={`${size} border-b border-gray-300`}
                       >
                         {row[column.accessor]}
                       </td>
