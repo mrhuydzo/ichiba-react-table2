@@ -141,7 +141,7 @@ const Table = ({
               return (
                 <tr
                   key={row.id}
-                  className={` even:bg-neutral-50 hover:${bgHover}`}
+                  className={`even:bg-neutral-50 hover:${bgHover}`}
                 >
                   {columns.map((column) => {
                     // if (column.format) {
@@ -192,11 +192,6 @@ const Table = ({
           <p>No data found</p>
         )}
 
-        {/*<div>*/}
-        {/*  <p>*/}
-        {/*    <button onClick={clearAll}>Clear all</button>*/}
-        {/*  </p>*/}
-        {/*</div>*/}
       </div>
     </>
   );

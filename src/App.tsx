@@ -48,7 +48,7 @@ function App() {
 				<Table
 					rows={rows} // Data Array
 					columns={columns} // Include object columns accessor and label
-					headerAlign={"left"} // Include left | right | center in header table
+					headerAlign={"right"} // Include left | right | center in header table
 					bgHover={"bg-gray-100"} // Include row background color hover
 					rowsPerPage={10} // Include number row per page
 					filter={isShowFilter} // True | False filter in header table
