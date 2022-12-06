@@ -384,7 +384,7 @@ export const columns = [
 	{accessor: "age", label: "Age"},
 	{
 		accessor: "position",
-		label: "Manager",
+		label: "Position",
 		// format: (value: any) => (value ? "✔️" : "✖️"),
 	},
 	{accessor: "start_date", label: "Start Date"},

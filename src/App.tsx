@@ -38,7 +38,7 @@ function App() {
 					<span className="text-gray-500 mx-4">|</span>
 					<div>
 						<strong className="mr-3">Select size:</strong>
-						<select name="" id="" onChange={handleSizeTable} value={isSize} className="py-1 px-3 border rounded bg-gray-100 cursor-pointer outline-none">
+						<select onChange={handleSizeTable} value={isSize} className="py-1 px-3 border rounded bg-gray-100 cursor-pointer outline-none">
 							<option value="p-2">Small</option>
 							<option value="p-3">Medium</option>
 							<option value="p-4">Large</option>

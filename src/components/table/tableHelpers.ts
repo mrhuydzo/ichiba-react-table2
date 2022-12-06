@@ -1,4 +1,5 @@
 import { ITableSortProps } from "./types";
+
 export function isEmpty(obj = {}) {
   return Object.keys(obj).length === 0;
 }
@@ -45,7 +46,7 @@ export function convertType(value: any) {
     return convertDateString(value);
   }
 
-  if (isBoolean(value)) {
+  if (typeof value === "boolean") {
     return value ? "1" : "-1";
   }
 
