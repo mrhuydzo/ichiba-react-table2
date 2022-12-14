@@ -65,10 +65,7 @@ const Table = ({
   const handleSort = (accessor: string) => {
     setActivePage(1);
     setSort((prevSort) => ({
-      order:
-        prevSort.order === "asc" && prevSort.orderBy === accessor
-          ? "desc"
-          : "asc",
+      order: prevSort.order === "asc" && prevSort.orderBy === accessor ? "desc" : "asc",
       orderBy: accessor,
     }));
   };

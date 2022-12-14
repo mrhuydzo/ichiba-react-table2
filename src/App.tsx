@@ -20,6 +20,15 @@ function App() {
 	const handleToggleFilter = () => {
 		setShowFilter(prevShowFilter => !prevShowFilter)
 	}
+	// export const columns: any = [
+	// 	{accessor: "a",label: "a"}
+	// ]
+	//
+	// export const rows: any = [
+	// 	{a: 1},
+	// 	{a: 2}
+	// ]
+	//
 
 	return (
 		<div className="App">
